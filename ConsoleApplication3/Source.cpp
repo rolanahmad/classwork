@@ -36,11 +36,14 @@ struct student {
 };
 
 void generate_name(fio *fio);
-
+void calculate_assessments(student *student);
+void chek_assessments(student *student);
 
 void main() {
 	srand(time(0));
 	rand();
+	system("chcp 1251");
+	system("cls");
 	int students_colvo;
 	cout << "Пожалуйста введите количество студентов: ";
 	cin >> students_colvo;
@@ -51,8 +54,8 @@ void main() {
 	else {
 		for (int i = 0; i < students_colvo; i++)
 		{
+			students->fio = new fio[1];
 			generate_name(students->fio);
-
 			students->assessments = new int[10];
 			for (int j = 0; j < 10; j++)
 				students->assessments[j] = 1 + rand() % 9;
@@ -60,6 +63,23 @@ void main() {
 			students++;
 		}
 		students -= students_colvo;
+
+		for (int i = 0; i < students_colvo; i++)
+		{
+			calculate_assessments(students+i);
+			chek_assessments(students+i);
+
+		}
+
+		for (int i = 0; i < students_colvo; i++)
+		{
+			cout << "#" << i + 1 << ". " <<
+				(students + i)->fio->name << " " <<
+				(students + i)->fio->surname[0] << "." <<
+				(students + i)->fio->patronymic[0] << "." << " " <<
+				(students + i)->attribute << endl;
+
+		}
 
 	}
 }
@@ -82,8 +102,6 @@ void chek_assessments(student *student) {
 	else {
 		student->attribute = 2;
 	}
-
-
 }
 
 void calculate_assessments(student *student) {
@@ -99,9 +117,12 @@ void generate_name(fio *fio) {
 	fio->surname = new char[3];
 	for (int i = 0; i < 3; i++)
 	{
-		fio->name[i] = 97 + rand() % 95;
-		fio->patronymic[i] = 97 + rand() % 95;
-		fio->surname[i] = 97 + rand() % 95;
+		fio->name[i] = (char)97 + rand() % 25;
+		fio->patronymic[i] = (char)97 + rand() % 25;
+		fio->surname[i] = (char)97 + rand() % 25;
 	}
+	fio->name[3] = '\0';
+	fio->patronymic[3] = '\0';
+	fio->surname[3] = '\0';
 
 }
