@@ -34,9 +34,11 @@ struct student {
 	int attribute;
 	int sum;
 };
-
+//Генирация Ф.И.0
 void generate_name(fio *fio);
+//Подсчет оценки
 void calculate_assessments(student *student);
+//Проверка успеваемости
 void chek_assessments(student *student);
 
 void main() {
@@ -83,12 +85,7 @@ void main() {
 
 	}
 }
-/*
-5 – отличник(только 9 и(или) 10),
-4 – хорошист(нет оценок, меньше 6, но не все 9 или 10, а есть 6 и(или) 7 и(или) 8),
-3 – троечник(нет оценок, меньше 4, но есть 4 и(или) 5),
-2 – неуспевающий(есть 1 и(или) 2 и(или) 3).
-*/
+
 void chek_assessments(student *student) {
 	if (student->sum > 8) {
 		student->attribute = 5;
@@ -105,6 +102,7 @@ void chek_assessments(student *student) {
 }
 
 void calculate_assessments(student *student) {
+	student->sum = 0;
 	for (int i = 0; i < 10; i++) 
 		student->sum += student->assessments[i];
 	
